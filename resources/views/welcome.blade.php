@@ -83,20 +83,6 @@
                 <div class="title m-b-md">
                     Laravel
                 </div>
-
-
-                <div>
-                </div>
-
-
-                <div class="links">
-
-                    <ul>
-                        @foreach($tasks as $task)
-                            <li>{{ $task->todo }}</li>
-                        @endforeach
-                    </ul>
-                </div>
             </div>
         </div>
     </body>

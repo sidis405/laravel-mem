@@ -1,26 +1,19 @@
 <?php
 
-Route::get('/', 'TasksController@index');
-Route::get('tasks/{task}', 'TasksController@show');
+Route::get('/', 'PostsController@index')->name('posts.index');
+Route::get('posts/{post}', 'PostsController@show')->name('posts.show');
 
-// Route::get('/', function () {
-//     $tasks = App\Task::all();
-//     return view('welcome', compact('tasks'));
+// GET, POST, PATCH|PUT, DELETE (OPTIONS)
+// REST - Model POST
 
-//     // $name = 'Pippo';
+// index    - GET       - /posts - mostra tutti i posts                             - PostsController@index     - posts.index
+// show     - GET       - /posts/{post} - mostra singolo post                       - PostsController@show      - posts.show
+// create   - GET       - /posts/create - mostra form creazione singolo post        - PostsController@create    - posts.create
+// store    - POST      - /posts - salva nuovo post in db                           - PostsControlelr@store     - posts.store
+// edit     - GET       - /posts/{post}/edit - mostra form modifica post esistente  - PostsController@edit      - posts.edit
+// update   - PATCH     - /posts/{post} - salva aggiornamenti post esistente        - PostsController@update    - posts.update
+// destroy  - DELETE    - /posts/{post} - cancella post da db                       - PostsControlelr@destroy   - posts.destroy
 
-//     // $tasks = [
-//     //     'Ripassare OOP',
-//     //     'Imparare Laravel',
-//     //     'Leggere la documentazione'
-//     // ];
-//     // return $tasks;
-//     // return view('welcome', compact('name'));
-//     // return view('welcome', ['name' => $name]);
-//     // return view('welcome')->withName($name);
-//     // return view('welcome')->with('name', $name);
-// });
+Auth::routes();
 
-// Route::get('tasks/{id}', function ($id) {
-//     return App\Task::find($id);
-// });
+Route::get('/home', 'HomeController@index')->name('home');
