@@ -10,7 +10,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -18,6 +19,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
+    <style type="text/css">
+        .select2-selection{
+            height: 35px!important;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -33,7 +40,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('posts.create') }}">+ New Post</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -74,9 +83,13 @@
 
         <main class="py-4">
             <div class="container">
+                {{-- @include('layouts.errors') --}}
                 @yield('content')
             </div>
         </main>
     </div>
+    <script type="text/javascript">
+        $('select').select2({});
+    </script>
 </body>
 </html>

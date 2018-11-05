@@ -8,6 +8,9 @@ class Post extends Model
 {
     // protected $casts = ['mio_campo_data' => 'datetime'];
 
+    // protected $fillable = ['title', 'user_id', 'category_id', 'preview', 'body'];
+    protected $guarded = ['id'];
+
     public function getRouteKeyName()
     {
         return 'slug';
@@ -31,5 +34,11 @@ class Post extends Model
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    public function setTitleAttribute($title)
+    {
+        $this->attributes['title'] = $title;
+        $this->attributes['slug'] = str_slug($title);// new-snipped-fork-152
     }
 }
