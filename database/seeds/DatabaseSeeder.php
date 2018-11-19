@@ -14,7 +14,16 @@ class DatabaseSeeder extends Seeder
         $categories = factory(App\Category::class, 10)->create();
         $tags = factory(App\Tag::class, 30)->create();
 
-        $users = factory(App\User::class, 10)->create();
+        App\User::create([
+            'name' => 'Sidrit',
+            'email' => 'forge405@gmail.com',
+            'password' => bcrypt('secret'),
+            'role' => 'admin'
+        ]);
+
+        factory(App\User::class, 9)->create();
+
+        $users = App\User::all();
 
         foreach ($users as $user) {
             $posts = factory(App\Post::class, 15)->create([

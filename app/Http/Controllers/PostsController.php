@@ -12,13 +12,14 @@ class PostsController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except('index', 'show');
+        $this->middleware('can:update,post')->only('edit', 'update');
+        $this->middleware('can:delete,post')->only('destroy');
         // $this->middleware('auth')->only('create', 'store', 'edit', 'udpate', 'delete');
     }
 
     public function index()
     {
         $posts = Post::with('user', 'category', 'tags')->latest()->paginate(15);
-
         return view('posts.index', compact('posts'));
     }
 
@@ -38,7 +39,7 @@ class PostsController extends Controller
 
     public function store(PostRequest $request)
     {
-        auth()->user()->posts()->create($request->validated());
+        $post = auth()->user()->posts()->create($request->validated());
 
         $post->tags()->sync($request->tags);
 

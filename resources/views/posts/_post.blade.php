@@ -2,7 +2,11 @@
     <div class="card-header">
         <h3>
             <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
-            @auth | <a href="{{ route('posts.edit', $post) }}">[Edit]</a> @endauth
+            @auth
+                @can('update', $post)
+                    | <a href="{{ route('posts.edit', $post) }}">[Edit]</a>
+                @endcan
+             @endauth
         </h3>
         <small>by {{ $post->user->name }} on {{ $post->created_at->format('d/m/Y H:i') }}</small>
     </div>

@@ -41,4 +41,9 @@ class Post extends Model
         $this->attributes['title'] = $title;
         $this->attributes['slug'] = str_slug($title);// new-snipped-fork-152
     }
+
+    public function isAuthoredBy(User $user)
+    {
+        return $user->id == $this->user_id;
+    }
 }

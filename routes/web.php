@@ -8,6 +8,8 @@ Route::get('categories/{category}', 'CategoriesController')->name('categories.sh
 
 Route::get('tags/{tag}', 'TagsController')->name('tags.show');
 
+Auth::routes();
+
 // Route::get('posts/create', 'PostsController@create')->name('posts.create');
 // Route::get('posts/{post}', 'PostsController@show')->name('posts.show');
 // Route::post('posts', 'PostsController@store')->name('posts.store');
@@ -26,5 +28,3 @@ Route::get('tags/{tag}', 'TagsController')->name('tags.show');
 // update   - PATCH     - /posts/{post} - salva aggiornamenti post esistente        - PostsController@update    - posts.update
 
 // destroy  - DELETE    - /posts/{post} - cancella post da db                       - PostsController@destroy   - posts.destroy
-
-Auth::routes();
