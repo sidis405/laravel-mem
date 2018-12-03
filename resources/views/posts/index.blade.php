@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h2>Latest Post ({{ $posts->total() }})</h2>
+<h2>@lang('blog.latest posts') ({{ $posts->total() }})</h2>
 
 {{ $posts->links() }}
 

@@ -27,6 +27,7 @@ class PostRequest extends FormRequest
             'title' => 'required|min:5|max:191',
             'preview' => 'required|min:5|max:191',
             'body' => 'required|min:5',
+            'cover' => 'sometimes',
             'category_id' => 'required|exists:categories,id',
         ];
     }

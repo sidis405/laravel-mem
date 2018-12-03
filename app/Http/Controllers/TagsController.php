@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Tag;
-use App\Post;
+use App\Repositories\TagsRepository;
 
 class TagsController extends Controller
 {
-    public function __invoke(Tag $tag)
+    public function __invoke(Tag $tag, TagsRepository $repo)
     {
-        $posts = Post::whereHas('tags', function ($query) use ($tag) {
-            $query->where('tag_id', $tag->id);
-        })->with('user', 'category', 'tags')->latest()->paginate(15);
+        $posts = $repo->show($tag);
 
         return view('tags.show', compact('posts', 'tag'));
     }

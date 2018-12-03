@@ -6,26 +6,36 @@ use App\Tag;
 use App\Post;
 use App\Category;
 use App\Http\Requests\PostRequest;
+use App\Repositories\PostsRepository;
 
 class PostsController extends Controller
 {
-    public function __construct()
+    protected $repo;
+
+    public function __construct(PostsRepository $repo)
     {
         $this->middleware('auth')->except('index', 'show');
+        // $this->middleware('custom-manutenzione')->except('index', 'show');
         $this->middleware('can:update,post')->only('edit', 'update');
         $this->middleware('can:delete,post')->only('destroy');
         // $this->middleware('auth')->only('create', 'store', 'edit', 'udpate', 'delete');
+        $this->repo = $repo;
     }
 
     public function index()
     {
-        $posts = Post::with('user', 'category', 'tags')->latest()->paginate(15);
+        $posts = $this->repo->all(5);
+
+        // if (request()->wantsJson() || request()->ajax()) {
+        //     return $posts;
+        // }
+
         return view('posts.index', compact('posts'));
     }
 
     public function show(Post $post)
     {
-        return view('posts.show', compact('post'));
+        return view('posts.show')->withPost($this->repo->show($post));
     }
 
     public function create()
@@ -39,9 +49,7 @@ class PostsController extends Controller
 
     public function store(PostRequest $request)
     {
-        $post = auth()->user()->posts()->create($request->validated());
-
-        $post->tags()->sync($request->tags);
+        $post = $this->repo->store($request);
 
         return redirect()->route('posts.show', $post);
     }
@@ -56,18 +64,14 @@ class PostsController extends Controller
 
     public function update(Post $post, PostRequest $request)
     {
-        $post->update($request->validated());
-
-        $post->tags()->sync($request->tags);
+        $post = $this->repo->update($post, $request);
 
         return redirect()->route('posts.show', $post);
     }
 
     public function destroy(Post $post)
     {
-        $post->tags()->sync([]);
-
-        $post->delete();
+        $this->repo->delete($post);
 
         return redirect('/');
     }

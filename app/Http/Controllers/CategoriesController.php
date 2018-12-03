@@ -2,19 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
 use App\Category;
+use App\Repositories\CategoriesRepository;
 
 class CategoriesController extends Controller
 {
+    protected $repo;
+
+    public function __construct(CategoriesRepository $repo)
+    {
+        $this->repo = $repo;
+    }
+
     public function index()
     {
-        return Category::whereHas('posts')->withCount('posts')->get()->sortByDesc('posts_count');
+        return $this->repo->all();
     }
 
     public function show(Category $category)
     {
-        $posts = Post::where('category_id', $category->id)->with('user', 'category', 'tags')->latest()->paginate(15);
+        $posts = $this->repo->show($category);
 
         return view('categories.show', compact('posts', 'category'));
     }

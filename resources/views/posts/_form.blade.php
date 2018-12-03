@@ -29,6 +29,16 @@
 </div>
 
 <div class="form-group">
+    <label for="cover">Choose a cover</label>
+    <input type="file" name="cover" class="form-control{{ $errors->has('cover') ? ' is-invalid' : '' }}">
+    @if ($errors->has('cover'))
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $errors->first('cover') }}</strong>
+        </span>
+    @endif
+</div>
+
+<div class="form-group">
     <label for="preview">Preview</label>
     <textarea class="form-control{{ $errors->has('preview') ? ' is-invalid' : '' }}" name="preview" placeholder="Say a few words..">{{ old('preview', $post->preview) }}</textarea>
     @if ($errors->has('preview'))

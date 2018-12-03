@@ -5,7 +5,7 @@
 <h3>Edit this post</h3>
 
 <section>
-    <form method="POST" action="{{ route('posts.update', $post) }}">
+    <form method="POST" action="{{ route('posts.update', $post) }}"  enctype="multipart/form-data">
         @csrf
         @method('PATCH')
 

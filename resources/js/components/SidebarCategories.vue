@@ -1,7 +1,7 @@
 <template>
     <ul>
         <li v-for="category in categories">
-            <a :href="category.link">{{ category.name }} ({{ category.posts_count }})</a>
+            <a :href="'/' + category.link">{{ category.name }} ({{ category.posts_count }})</a>
         </li>
     </ul>
 </template>

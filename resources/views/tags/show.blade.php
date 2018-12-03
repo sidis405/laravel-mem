@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h2>Latest Post on tagged with "{{ $tag->name }}" ({{ $posts->total() }})</h2>
+<h2>{{ __('blog.latest posts tagged') }} "{{ $tag->name }}" ({{ $posts->total() }})</h2>
 
 {{ $posts->links() }}
 

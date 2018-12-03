@@ -24,8 +24,13 @@ class AppServiceProvider extends ServiceProvider
             $categories = Category::whereHas('posts')->withCount('posts')->get()->sortByDesc('posts_count');
             $tags = Tag::whereHas('posts')->withCount('posts')->get();
 
+            //select year(created_at) year, monthname(created_at) month, count(*) published  from posts group by 1, 2 order by min(created_at) DESC
 
-            $view->with('categories', $categories)->with('tags', $tags);
+            $archiveArticles = Post::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published ')
+            ->groupBy('year', 'month')
+            ->orderByRaw('min(created_at) DESC')->get();
+
+            $view->with('categories', $categories)->with('tags', $tags)->with('archiveArticles', $archiveArticles);
         });
     }
 
